@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", function() {
+
 const url_base = "http://api.openweathermap.org/data/2.5/"
 
 const apiKey = "865654a47a420ab987ecf3de54b51afc"
@@ -5,6 +7,9 @@ const apiKey = "865654a47a420ab987ecf3de54b51afc"
 const homeButton = document.querySelector('#homeButton')
 const searchButton = document.querySelector('#searchButton')
 const favoritesButton = document.querySelector('#favoritesButton')
+
+const buttons = document.querySelectorAll("#nav>button")
+const sections = document.querySelectorAll("#main>section")
 
 
 const homeSection = document.getElementById('homeSection')
@@ -16,24 +21,34 @@ const FavoriosListar = document.querySelector('#favoritesList')
 const busquedaResultado = document.querySelector('#searchInput')
 const mostsrarResultados = document.querySelector('#searchResults tbody')
 
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function(){
 
-homeButton.addEventListener('click', ()=> {
-    homeSection.style.display = 'block'
-    searchSection.style.display = 'none'
-    favoritesSection.style.display = 'none'
-})
+        sections.forEach(s => s.style.display = "none")
 
-searchButton.addEventListener('click', ()=> {
-    homeSection.style.display = 'none'
-    searchSection.style.display = 'block'
-    favoritesSection.style.display = 'none'
-})
+        sections[i].style.display = "block"
 
-favoritesButton.addEventListener('click', ()=> {
-    homeSection.style.display = 'none'
-    searchSection.style.display = 'none'
-    favoritesSection.style.display = 'block'
-})
+    })
+    
+}
+
+// homeButton.addEventListener('click', ()=> {
+//     homeSection.style.display = 'block'
+//     searchSection.style.display = 'none'
+//     favoritesSection.style.display = 'none'
+// })
+
+// searchButton.addEventListener('click', ()=> {
+//     homeSection.style.display = 'none'
+//     searchSection.style.display = 'block'
+//     favoritesSection.style.display = 'none'
+// })
+
+// favoritesButton.addEventListener('click', ()=> {
+//     homeSection.style.display = 'none'
+//     searchSection.style.display = 'none'
+//     favoritesSection.style.display = 'block'
+// })
 
 busquedaResultado.addEventListener("keyup", function(ev){
     if (ev.key == "Enter"){
@@ -81,6 +96,7 @@ function mostrarCiudad(datos){
 
 }
 
+})
 
 
 
