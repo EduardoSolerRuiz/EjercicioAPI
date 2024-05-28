@@ -75,21 +75,12 @@ function mostrarCiudad(datos){
 
         botonFav.dataset.id = r.id
 
+
         nuevaCelda5.append(botonFav)
-        
     })
 
 }
 
-mostsrarResultados.addEventListener("click", function(ev){
-
-    if (ev.target.nodeName == "button"){
-        if(!FavoriosListar.includes(ev.target.dataset.ed)){
-            FavoriosListar.push(ev.target.dataset.id)
-        }
-    }
-
-})
 
 
 
