@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyWeather</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>MyWeather</h1>
+        <nav>
+            <button id="homeButton">Home</button>
+            <button id="searchButton">Search</button>
+            <button id="favoritesButton">Favorites</button>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="homeSection">
+            <h2>Home</h2>
+            <p>Welcome to MyWeather. Please search for a city to see the weather.</p>
+        </section>
+        
+        <section id="searchSection" style="display: none;">
+            <h2>Search</h2>
+            <input type="text" id="searchInput" placeholder="Enter city name">
+            <button id="searchCityButton">Search</button>
+            <table id="searchResults">
+                <thead>
+                    <tr>
+                        <th>City</th>
+                        <th>Country</th>
+                        <th>Temperature min</th>
+                        <th>Temperature max</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los resultados se agregarán aquí -->
+                </tbody>
+        </section>
+        
+        <section id="favoritesSection" style="display: none;">
+            <h2>Favorites</h2>
+            <div id="favoritesList"></div>
+            <button id="updateFavoritesButton">Update All</button>
+        </section>
+    </main>
+
+    <script defer src="script.js"></script>
+</body>
+</html>
