@@ -11,26 +11,45 @@ const favoritesButton = document.querySelector('#favoritesButton')
 const buttons = document.querySelectorAll("#nav>button")
 const sections = document.querySelectorAll("#main>section")
 
+// console.log(buttons)
+// console.log(sections)
+
 
 const homeSection = document.getElementById('homeSection')
 const searchSection = document.getElementById('searchSection')
 const favoritesSection = document.getElementById('favoritesSection')
+
+// console.log('Home Section:', homeSection);
+//     console.log('Search Section:', searchSection);
+//     console.log('Favorites Section:', favoritesSection);
 
 // const searchResults = document.querySelector('#searchResults')
 const FavoriosListar = document.querySelector('#favoritesList')
 const busquedaResultado = document.querySelector('#searchInput')
 const mostsrarResultados = document.querySelector('#searchResults tbody')
 
-for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener("click", function(){
+let favoritos = []
 
-        sections.forEach(s => s.style.display = "none")
+// function hideAllSections() {
+//     homeSection.style.display = 'none'
+//     searchSection.style.display = 'none'
+//     favoritesSection.style.display = 'none'
+// }
+
+function ocultarTodasSecciones() {
+    sections.forEach(section => section.style.display = 'none');
+}
+
+
+
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function() {
+        ocultarTodasSecciones()
 
         sections[i].style.display = "block"
-
     })
-    
 }
+
 
 // homeButton.addEventListener('click', ()=> {
 //     homeSection.style.display = 'block'
@@ -95,6 +114,15 @@ function mostrarCiudad(datos){
     })
 
 }
+
+FavoriosListar.addEventListener("click", function(ev){
+    if (ev.target.nodeName.toLowerCase() == "button"){
+        let encontrado = mostrarCiudad.find(u => u.id == ev.target.dataset.id)
+        FavoriosListar.push(ev.target.data.id)
+
+    }
+
+})
 
 })
 

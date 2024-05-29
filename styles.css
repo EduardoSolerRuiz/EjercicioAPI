@@ -91,3 +91,11 @@ button:hover {
 h2 {
     color: #4CAF50;
 }
+
+
+section {
+    display: none;
+}
+section.active {
+    display: block;
+}

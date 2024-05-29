@@ -10,9 +10,9 @@
     <header>
         <h1>MyWeather</h1>
         <nav id="nav">
-            <button id="homeButton">Home</button>
-            <button id="searchButton">Search</button>
-            <button id="favoritesButton">Favorites</button>
+            <button id="homeButton" data-section="homeSection">Home</button>
+            <button id="searchButton" data-section="searchSection">Search</button>
+            <button id="favoritesButton" data-section="favoritesSection">Favorites</button>
         </nav>
     </header>
     
@@ -22,10 +22,10 @@
             <p>Welcome to MyWeather. Please search for a city to see the weather.</p>
         </section>
         
-        <section id="searchSection" style="display: none;">
+        <section id="searchSection">
             <h2>Search</h2>
             <input type="text" id="searchInput" placeholder="Enter city name">
-            <button id="searchCityButton">Search</button>
+            <button id=" ">Search</button>
             <table id="searchResults">
                 <thead>
                     <tr>
@@ -38,9 +38,10 @@
                 <tbody>
                     <!-- Los resultados se agregarán aquí -->
                 </tbody>
+            </table>
         </section>
         
-        <section id="favoritesSection" style="display: none;">
+        <section id="favoritesSection">
             <h2>Favorites</h2>
             <div id="favoritesList"></div>
             <button id="updateFavoritesButton">Update All</button>
