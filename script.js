@@ -27,8 +27,10 @@ const favoritesSection = document.getElementById('favoritesSection')
 const FavoriosListar = document.querySelector('#favoritesList')
 const busquedaResultado = document.querySelector('#searchInput')
 const mostsrarResultados = document.querySelector('#searchResults tbody')
+const actualizarTiempo = document.querySelector('#updateFavoritesButton')
 
 let favoritos = []
+let jsonResultados
 
 // function hideAllSections() {
 //     homeSection.style.display = 'none'
@@ -76,7 +78,8 @@ busquedaResultado.addEventListener("keyup", function(ev){
         .then(resp => resp.json())
         .then(data => {
             console.log(data)
-            mostrarCiudad(data)
+            jsonResultados = data
+             (data)
         })
         .catch(error => {
             console.error('se produjo un error al obtener los datos: ', error)
@@ -106,7 +109,6 @@ function mostrarCiudad(datos){
 
         let botonFav = document.createElement("button")
         botonFav.textContent = "Añadir Fav"
-
         botonFav.dataset.id = r.id
 
 
@@ -114,15 +116,56 @@ function mostrarCiudad(datos){
     })
 
 }
+mostsrarResultados.addEventListener("click", function(ev) {
+    if(ev.target.nodeName.toLowerCase()== "button"){
+        let ciudadId = ev.target.dataset.id
 
-FavoriosListar.addEventListener("click", function(ev){
-    if (ev.target.nodeName.toLowerCase() == "button"){
-        let encontrado = mostrarCiudad.find(u => u.id == ev.target.dataset.id)
-        FavoriosListar.push(ev.target.data.id)
+        if (!favoritos.includes(ciudadId)) {
+            favoritos.push(ciudadId)
+            añadirSeccionFavoritos(ciudadId)
+            console.log(ciudadId)
+        }
 
     }
 
 })
+
+function añadirSeccionFavoritos(id){
+    // FavoriosListar.innerHTML = ""
+    let ciudad = jsonResultados.list.find(r => r.id == id)
+    if (ciudad) {
+        let crearDiv = document.createElement('div')
+        let botonBorrarFav = document.createElement('button')
+            botonBorrarFav.textContent = "X"
+        crearDiv.textContent = `${ciudad.name}, ${ciudad.sys.country}: ${ciudad.main.temp_min}°C , ${ciudad.main.temp_max}°C`
+        FavoriosListar.append(crearDiv)
+        FavoriosListar.append(botonBorrarFav)
+    }
+}
+
+actualizarTiempo.addEventListener('click', function(){
+    actualizarTiempoFavoritos()
+})
+
+function actualizarTiempoFavoritos() {
+    FavoriosListar.innerHTML = ""; // Limpiar la lista actual antes de actualizar
+
+    favoritos.forEach(favId => {
+        fetch(`${url_base}weather?id=${favId}&units=metric&appid=${apiKey}`)
+        .then(resp => resp.json())
+        .then(data => {
+            let crearDiv = document.createElement('div')
+            
+            crearDiv.textContent = `${data.name}, ${data.sys.country}: ${data.main.temp_min}°C , ${data.main.temp_max}°C`
+            FavoriosListar.append(crearDiv)
+            
+        })
+        .catch(error => {
+            console.error('Error al actualizar el clima de la ciudad:', error)
+        })
+    })
+}
+
 
 })
 
