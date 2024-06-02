@@ -15,15 +15,16 @@ const sections = document.querySelectorAll("#main>section")
 // console.log(sections)
 
 
-const homeSection = document.getElementById('homeSection')
-const searchSection = document.getElementById('searchSection')
-const favoritesSection = document.getElementById('favoritesSection')
+// const homeSection = document.getElementById('homeSection')
+// const searchSection = document.getElementById('searchSection')
+// const favoritesSection = document.getElementById('favoritesSection')
 
 // console.log('Home Section:', homeSection);
 //     console.log('Search Section:', searchSection);
 //     console.log('Favorites Section:', favoritesSection);
 
 // const searchResults = document.querySelector('#searchResults')
+
 const FavoriosListar = document.querySelector('#favoritesList')
 const busquedaResultado = document.querySelector('#searchInput')
 const mostsrarResultados = document.querySelector('#searchResults tbody')
@@ -79,7 +80,7 @@ busquedaResultado.addEventListener("keyup", function(ev){
         .then(data => {
             console.log(data)
             jsonResultados = data
-             (data)
+            mostrarCiudad(data)
         })
         .catch(error => {
             console.error('se produjo un error al obtener los datos: ', error)
@@ -123,7 +124,7 @@ mostsrarResultados.addEventListener("click", function(ev) {
         if (!favoritos.includes(ciudadId)) {
             favoritos.push(ciudadId)
             añadirSeccionFavoritos(ciudadId)
-            console.log(ciudadId)
+            // console.log(ciudadId)
         }
 
     }
@@ -139,7 +140,7 @@ function añadirSeccionFavoritos(id){
             botonBorrarFav.textContent = "X"
         crearDiv.textContent = `${ciudad.name}, ${ciudad.sys.country}: ${ciudad.main.temp_min}°C , ${ciudad.main.temp_max}°C`
         FavoriosListar.append(crearDiv)
-        FavoriosListar.append(botonBorrarFav)
+        crearDiv.append(botonBorrarFav)
     }
 }
 
@@ -155,9 +156,23 @@ function actualizarTiempoFavoritos() {
         .then(resp => resp.json())
         .then(data => {
             let crearDiv = document.createElement('div')
+            let botonBorrarFav = document.createElement('button')
+            botonBorrarFav.textContent = "X"
+            botonBorrarFav.dataset.id = favId
+            botonBorrarFav.classList.add('borrarFav')
+            
             
             crearDiv.textContent = `${data.name}, ${data.sys.country}: ${data.main.temp_min}°C , ${data.main.temp_max}°C`
+            crearDiv.append(botonBorrarFav)
+
             FavoriosListar.append(crearDiv)
+
+            botonBorrarFav.addEventListener("click", function(ev) {
+                let ciudadId = ev.target.dataset.id
+                favoritos = favoritos.filter(favId => favId != ciudadId)
+                ev.target.parentElement.remove()
+                alert("Ciudad eliminada de favoritos")
+            })
             
         })
         .catch(error => {
@@ -168,12 +183,3 @@ function actualizarTiempoFavoritos() {
 
 
 })
-
-
-
-
-
-
-
-
-
