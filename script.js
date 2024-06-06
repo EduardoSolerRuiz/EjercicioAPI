@@ -207,12 +207,14 @@ document.addEventListener("DOMContentLoaded", function () {
     function addHome(id) {
         let ciudad = jsonResultados.list.find(r => r.id == id) || favoritos.find(favId => favId == id)
         if (ciudad) {
+            if (ciudad.sys && ciudad.sys.country && ciudad.main) {
             const crearDivHome = document.createElement('div')
             crearDivHome.textContent = `${ciudad.name}, ${ciudad.sys.country}: ${ciudad.main.temp_min}°C , ${ciudad.main.temp_max}°C`
             homeSection.append(crearDivHome)
 
-        }else{
-            alert("No se pudo añadir a la seccion home")
+            }else{
+                alert("No se pudo añadir a la seccion home")
+            }
         }
     }
 
